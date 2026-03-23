@@ -1,23 +1,34 @@
 import { prisma } from "../database/prisma.js";
 
-export const UserService = { listarUsers: async () => {
-    const readUserService = await prisma.users.findMany();
-    
-    if(readUserService.length == 0){
-        console.log("Tabela do banco de dados vazia")
-    }
+export const UserService = { 
+    listarUsers: async () => {
+        const readUserService = await prisma.users.findMany();
+        
+        if(readUserService.length == 0){
+            console.log("Tabela do banco de dados vazia")
+        }
 
-    return readUserService;
-}, 
-buscarPorID: async (id: number) => {
-    
-    const readUserId = await prisma.users.findUnique({where:{id: id}});
+        return readUserService;
+        }, 
+        buscarPorID: async (id: number) => {
+            
+            const readUserId = await prisma.users.findUnique({where:{id: id}});
 
-    if(!readUserId){
+            if(!readUserId){
+                return null;
+            }
 
-        return null;
-    }
+            return readUserId;
+        },
+        createUsers: async (nome: string, email: string, password: string) => {
+            const userCreate = await prisma.users.create({
+                data:{
+                name: nome,
+                email: email,
+                password: password
+                }
+            });
 
-    return readUserId;
-}
+            return userCreate;
+        }
 };

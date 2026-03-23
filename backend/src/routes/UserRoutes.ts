@@ -5,4 +5,6 @@ export async function userRoutes (app: FastifyInstance){
     app.get("/users", UserController.indexUser);
 
     app.get("/users/:id", UserController.showUser);
+
+    app.post("/users/signup", UserController.userCreate);
 }

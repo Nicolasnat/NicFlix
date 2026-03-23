@@ -21,5 +21,22 @@ export const UserController = {
             console.error("erro: ", error);
             return reply.status(500).send({error: "Erro ao buscar dados"})
         }
+    },
+    userCreate: async ( request: FastifyRequest, reply: FastifyReply) => {
+        try{
+            const {name, email, password} = request.body as any;
+
+            if(!name || !email || !password){
+                return reply.status(400).send("Nome, email e senha são obrigatorios")
+            }
+
+
+            const user = await UserService.createUsers(name, email, password);
+
+            return reply.status(201).send(user);
+        } catch (error){
+            console.error("erro: ", error);
+            return reply.status(500). send({error: "erro ao criar usuario"});
+        }
     }
 }
