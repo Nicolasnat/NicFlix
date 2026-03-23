@@ -1,4 +1,4 @@
-# 🎬 NicFlix – Plataforma de Streaming (Projeto Educacional)
+# 🎬 NicFlix – Plataforma de Streaming (Projeto Educacional) - Ainda criando
 
 ## 📖 Sobre o Projeto
 
