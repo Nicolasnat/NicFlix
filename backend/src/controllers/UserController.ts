@@ -1,5 +1,6 @@
 import type {FastifyReply, FastifyRequest} from "fastify";
 import { UserService } from "../services/UserService.js";
+import { app } from "../app.js";
 
 export const UserController = {
     indexUser: async (request: FastifyRequest, reply: FastifyReply) => {
@@ -37,6 +38,25 @@ export const UserController = {
         } catch (error){
             console.error("erro: ", error);
             return reply.status(500). send({error: "erro ao criar usuario"});
+        }
+    },
+    UserLogin: async (request: FastifyRequest, reply: FastifyReply) => {
+        try{
+            const {email, password } = request.body as any;
+            const userLogin = await UserService.login(email, password);
+
+            if(!userLogin){
+                return reply.status(500).send("Erro ao fazer login");
+            }
+
+            const token = app.jwt.sign({
+                sub: userLogin.id,
+                email: userLogin.email
+            })
+            return reply.status(201).send(token);
+        } catch (error){
+            console.error("erro: ", error)
+            return reply.status(500).send("Erro ao fazer login")
         }
     }
 }

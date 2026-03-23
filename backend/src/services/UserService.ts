@@ -30,5 +30,16 @@ export const UserService = {
             });
 
             return userCreate;
+        },
+        login: async (email: string, password: string) => {
+            const userEmail = await prisma.users.findUnique({where: {
+                email: email
+            }});
+
+            if(!userEmail || userEmail.password !== password){
+                return null;
+            }
+
+            return userEmail;
         }
 };
