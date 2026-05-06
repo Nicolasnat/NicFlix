@@ -24,7 +24,8 @@ Este projeto não tem fins comerciais e é utilizado apenas para fins de **apren
 ## Backend
 
 * Node.js
-* Express.js
+* Fastify
+* TypeScript
 * PostgreSQL
 * JSON Web Token (JWT)
 
